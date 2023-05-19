@@ -21,5 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(PhoneController::class)->group(function () {
     Route::get('/phones', 'allPhones');
+    Route::get('/phones/{id}', 'phone')->whereNumber('id');
+    Route::get('/phones/{id}/{fields}', 'fields')->whereIn('fields', ['brand', 'model', 'storage', 'color']);
+
+
     Route::post('/phones', 'createPhone');
 });
+
+// OptionalRoute
+Route::get('/optional/{name?}', [OptionalController::class, 'optionalRoute'])->whereAlpha('name');
